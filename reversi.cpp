@@ -1,11 +1,12 @@
 #include <iostream> 
 #include <iomanip>
+#define BOARD_SIZE 8
 using namespace std;
 char board[8][8];
 bool valid_moves[8][8];
-const int BOARD_SIZE = 8;
 
-void initializeBoard (char (&board)[8][8]) {
+
+void initializeBoard (char (&board)[BOARD_SIZE][BOARD_SIZE]) {
 
     for (int i = 0; i < BOARD_SIZE; i++)
     {
@@ -36,7 +37,7 @@ void initializeBoard (char (&board)[8][8]) {
 }
 
 
-void printBoard(char (&board)[8][8]){
+void printBoard(char (&board)[BOARD_SIZE][BOARD_SIZE]){
     const int num_rows = 17;
     const int num_cols = 34;
     char row_cnt = '1';
@@ -93,12 +94,152 @@ void printBoard(char (&board)[8][8]){
 
 }
 
+void updateValidMove (bool (&valid_moves)[BOARD_SIZE][BOARD_SIZE], char turn, char board[BOARD_SIZE][BOARD_SIZE]){
+
+    char opponent;
+    if( turn == 'B'){
+        opponent = 'W';
+    } else{
+        opponent = 'B';
+    }
+}
+
+//This function checks if the position is empty and if there are adjacent pieces
+bool checkEmptyAndAdjPiece(char board[BOARD_SIZE][BOARD_SIZE], int i, int j){
+    
+    if(board[i][j] != ' '){
+        cout<< "I'm here!"<< endl;
+        return false;
+    }
+    //Check top-left corner
+    else if(i == 0 && j ==0){
+        if( board[i][j+1] == ' ' &&
+            board[i+1][j] == ' ' &&
+            board[i+1][j+1] == ' ' ){
+            return false;
+        } else{ 
+            return true;
+        }
+    }
+    //Check top-right corner
+    else if(i==0 && j ==7){
+        if( board[i+1][j]==' ' &&
+            board[i][j-1] == ' ' &&
+            board[i+1][j-1] == ' '
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+    //Check bottom-left corner
+    else if(i == 7 && j == 0){
+        if( board[i-1][j]==' ' &&
+            board[i][j+1] == ' ' &&
+            board[i-1][j+1] == ' '
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+    //Check bottom-right corner
+    else if(i == 7 && j == 7){
+        if( board[i-1][j]==' ' &&
+            board[i][j-1] == ' ' &&
+            board[i-1][j-1] == ' '
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+    //Check the top row not including the corner
+    else if( i == 0)
+    {
+        if( board[i][j-1]==' ' &&
+            board[i][j+1] == ' ' &&
+            board[i+1][j-1] == ' ' &&
+            board[i+1][j] == ' ' &&
+            board[i+1][j+1] == ' '
+
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+    //Checks the bottom row not including the corner
+    else if( i == 7)
+    {
+        if( board[i][j-1]==' ' &&
+            board[i][j+1] == ' ' &&
+            board[i-1][j-1] == ' ' &&
+            board[i-1][j] == ' ' &&
+            board[i-1][j+1] == ' '
+
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+    //Checks the most left column not including the corner
+    else if (j == 0)
+    {
+        if( board[i-1][j]==' ' &&
+            board[i+1][j] == ' ' &&
+            board[i][j+1] == ' ' &&
+            board[i+1][j+1] == ' ' &&
+            board[i-1][j+1] == ' '
+
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+    //Checks the most right column not including the corner
+    else if (j == 7)
+    {
+        if( board[i-1][j]==' ' &&
+            board[i+1][j] == ' ' &&
+            board[i][j-1] == ' ' &&
+            board[i+1][j-1] == ' ' &&
+            board[i-1][j-1] == ' '
+
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+    //Check everywhere else
+    else{
+ 
+        if( board[i+1][j]==' ' &&
+            board[i-1][j] == ' ' &&
+            board[i][j+1] == ' ' &&
+            board[i][j-1] == ' ' &&
+            board[i+1][j+1] == ' ' &&
+            board[i+1][j-1] == ' ' &&
+            board[i-1][j+1] == ' ' &&
+            board[i-1][j-1] == ' '
+
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+}
 
 
 int main(){
     initializeBoard(board);
     printBoard(board);
-
+    bool testPrint = checkEmptyAndAdjPiece(board,2,5);
+    cout << testPrint << endl;
 
     return 0;
 }
