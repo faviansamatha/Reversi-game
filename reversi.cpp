@@ -5,7 +5,6 @@
 using namespace std;
 
 
-
 void initializeBoard (char (&board)[BOARD_SIZE][BOARD_SIZE]) {
 
     for (int i = 0; i < BOARD_SIZE; i++)
@@ -201,7 +200,7 @@ bool checkPossibleFlip(char board[BOARD_SIZE][BOARD_SIZE], int i, int j, char pl
     check_opponent= false;
 
     //check from current all the way left
-    for (int test_j = j-1; test_j > 0; test_j--) {
+    for (int test_j = j-1; test_j >= 0; test_j--) {
 
         if (board[i][test_j] == ' '){
             break;
@@ -244,7 +243,7 @@ bool checkPossibleFlip(char board[BOARD_SIZE][BOARD_SIZE], int i, int j, char pl
     check_opponent= false;
 
     //check from current all the way up
-    for (int test_i = i-1; test_i > 0; test_i--) {
+    for (int test_i = i-1; test_i >= 0; test_i--) {
        
         if (board[test_i][j] == ' '){
             break;
@@ -268,7 +267,7 @@ bool checkPossibleFlip(char board[BOARD_SIZE][BOARD_SIZE], int i, int j, char pl
     int test_i = i-1;
     int test_j = j+1;
 
-    while (test_i >0 && test_j < BOARD_SIZE){
+    while (test_i >=0 && test_j < BOARD_SIZE){
         if (board[test_i][test_j] == ' '){
             break;
         }
@@ -293,7 +292,7 @@ bool checkPossibleFlip(char board[BOARD_SIZE][BOARD_SIZE], int i, int j, char pl
     test_i = i-1;
     test_j = j-1;
 
-    while (test_i >0 && test_j > 0){
+    while (test_i >=0 && test_j >= 0){
         if (board[test_i][test_j] == ' '){
             break;
         }
@@ -345,7 +344,7 @@ bool checkPossibleFlip(char board[BOARD_SIZE][BOARD_SIZE], int i, int j, char pl
     test_i = i+1;
     test_j = j-1;
 
-    while (test_i < BOARD_SIZE && test_j > 0){
+    while (test_i < BOARD_SIZE && test_j >= 0){
         if (board[test_i][test_j] == ' '){
             break;
         }
@@ -510,7 +509,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     check_opponent = false;
     should_flip = false;
     //Flip left if possible
-    for (int test_j = j-1; test_j > 0; test_j--) {
+    for (int test_j = j-1; test_j >= 0; test_j--) {
 
         if (board[i][test_j] == ' '){
             break;
@@ -531,7 +530,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     if (should_flip){
         int test_i = i;
         int test_j = j-1;
-        while(board[test_i][test_j] == opponent && j > 0)
+        while(board[test_i][test_j] == opponent && j >= 0)
         {
             board[test_i][test_j] = player;
             test_j--;
@@ -576,7 +575,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
 
     //Flip up if possible
 
-    for (int test_i = i-1; test_i > 0; test_i--) {
+    for (int test_i = i-1; test_i >= 0; test_i--) {
        
         if (board[test_i][j] == ' '){
             break;
@@ -598,7 +597,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     if (should_flip){
         int test_i = i-1;
         int test_j = j;
-        while(board[test_i][test_j] == opponent && test_i > 0)
+        while(board[test_i][test_j] == opponent && test_i >= 0)
         {
             board[test_i][test_j] = player;
             test_i--;
@@ -612,7 +611,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     int test_i = i-1;
     int test_j = j+1;
 
-    while (test_i >0 && test_j < BOARD_SIZE){
+    while (test_i >=0 && test_j < BOARD_SIZE){
         if (board[test_i][test_j] == ' '){
             break;
         }
@@ -635,7 +634,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     if (should_flip){
         test_i = i-1;
         test_j = j+1;
-        while(board[test_i][test_j] == opponent && test_i > 0 && test_j < BOARD_SIZE)
+        while(board[test_i][test_j] == opponent && test_i >= 0 && test_j < BOARD_SIZE)
         {
             board[test_i][test_j] = player;
             test_i--;
@@ -651,7 +650,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     test_i = i-1;
     test_j = j-1;
 
-    while (test_i >0 && test_j > 0){
+    while (test_i >=0 && test_j >= 0){
         if (board[test_i][test_j] == ' '){
             break;
         }
@@ -673,7 +672,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     if (should_flip){
         test_i = i-1;
         test_j = j-1;
-        while(board[test_i][test_j] == opponent && test_i > 0 && test_j > 0)
+        while(board[test_i][test_j] == opponent && test_i >= 0 && test_j >= 0)
         {
             board[test_i][test_j] = player;
             test_i--;
@@ -727,7 +726,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     test_i = i+1;
     test_j = j-1;
 
-    while (test_i < BOARD_SIZE && test_j > 0){
+    while (test_i < BOARD_SIZE && test_j >= 0){
         if (board[test_i][test_j] == ' '){
             break;
         }
@@ -750,7 +749,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
     if (should_flip){
         test_i = i+1;
         test_j = j-1;
-        while(board[test_i][test_j] == opponent && test_i < BOARD_SIZE && test_j > 0)
+        while(board[test_i][test_j] == opponent && test_i < BOARD_SIZE && test_j >= 0)
         {
             board[test_i][test_j] = player;
             test_i++;
@@ -765,10 +764,7 @@ void updateBoardFromInput(char (&board)[BOARD_SIZE][BOARD_SIZE],char input[], ch
 
 bool isInputValid(char input[],bool valid_moves[BOARD_SIZE][BOARD_SIZE]){
     
-    cout << input[0];
-    cout << input[1];
     bool test = input[1] <= 56 ;
-    cout << "       " << test << endl;
     bool charCheck = false;
     bool numCheck = false;
     
@@ -789,7 +785,6 @@ bool isInputValid(char input[],bool valid_moves[BOARD_SIZE][BOARD_SIZE]){
     }
     int i = input[1] - 49; 
     int j = input[0] - 97;
-    cout << i << endl;
     if(!valid_moves[i][j]){
         cout<<"ERROR, not a valid move on the board\n";
         return false;
@@ -817,18 +812,19 @@ void pieceCounter(int &black, int &white, char board[BOARD_SIZE][BOARD_SIZE]){
 
 
 void playerVsPlayer(){
+    const int INPUT_SIZE = 3;
     char board[BOARD_SIZE][BOARD_SIZE];
     bool valid_moves[BOARD_SIZE][BOARD_SIZE];
     vector<int> i_moves;
     vector<int> j_moves;
-    bool last_skip = true;
+    bool last_skip = false;
     initializeBoard(board);
     char turn = 'W';
-    int bCount = 0;
-    int wCount = 0;
+    int b_count = 0;
+    int w_count = 0;
+    bool is_input_not_valid = true;
     while(true){
-
-
+        char input[INPUT_SIZE];
         if( turn =='W'){
             turn = 'B';
         }
@@ -836,14 +832,51 @@ void playerVsPlayer(){
             turn = 'W';
         }
         updateValidMove(valid_moves,turn,board,i_moves,j_moves);
+        pieceCounter(b_count,w_count,board);
+        printBoard(board,valid_moves);
+        cout<<"Black's Pieces: " << b_count << "\t" <<"White's Pieces: " << w_count << endl;
+        
+        if(i_moves.size() ==0 && j_moves.size() ==0)
+        {
+            cout << turn << " has no legal moves... skipping turn" << endl << endl;
+            if(last_skip){
+                cout << endl << endl;
+                cout << "The game has ended. The winner is: ";
+                if( b_count > w_count){
+                    cout <<"Black";
+                }
+                else{
+                    cout <<"White";
+                }
+                cout<<endl << "Ending game..." << endl;
+                cout << "-------------------------------------" << endl;
+                break;
+            }else{
+                last_skip = true;
+            }
 
+            continue;
+        }
+        else{
+            last_skip = false;
+        }
+        
+        while(is_input_not_valid){
+            
+            cout << turn << "'s turn, please input a move: ";
+            cin.get(input,INPUT_SIZE);
+            cin.ignore(1024,'\n');
+            cin.clear();
+            is_input_not_valid = !isInputValid(input,valid_moves);
+            if(is_input_not_valid){
 
+                cout <<"ERROR: Input isn't valid! Try again!" << endl;
+            }
+        }
+        is_input_not_valid = true;
+        updateBoardFromInput(board,input,turn);
 
-
-    
     }
-
-
 }
 
 void mainMenu(){
@@ -861,7 +894,7 @@ void mainMenu(){
         cin.ignore(1024, '\n');
         cin.clear();
         if(input[0] == '1'){
-            cout <<"Starting Player vs player...";
+            cout <<"Starting Player vs player..."<< endl;
             cout <<"--------------------------------------" << endl << endl;
             playerVsPlayer();
             is_input_valid = true;
@@ -911,3 +944,4 @@ int main(){
 
     return 0;
 }
+
