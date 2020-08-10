@@ -879,6 +879,77 @@ void playerVsPlayer(){
     }
 }
 
+void pureMonteCarlo(){
+
+    bool is_input_not_valid = true;
+
+    
+    const int INPUT_SIZE = 3;
+    char board[BOARD_SIZE][BOARD_SIZE];
+    bool valid_moves[BOARD_SIZE][BOARD_SIZE];
+    vector<int> i_moves;
+    vector<int> j_moves;
+    bool last_skip = false;
+    initializeBoard(board);
+    char turn = 'W';
+    int b_count = 0;
+    int w_count = 0;
+    is_input_not_valid = true;
+    while(true){
+        char input[INPUT_SIZE];
+        if( turn =='W'){
+            turn = 'B';
+        }
+        else{ 
+            turn = 'W';
+        }
+        updateValidMove(valid_moves,turn,board,i_moves,j_moves);
+        pieceCounter(b_count,w_count,board);
+        printBoard(board,valid_moves);
+        cout<<"Black's Pieces: " << b_count << "\t" <<"White's Pieces: " << w_count << endl;
+        
+        if(i_moves.size() ==0 && j_moves.size() ==0)
+        {
+            cout << turn << " has no legal moves... skipping turn" << endl << endl;
+            if(last_skip){
+                cout << endl << endl;
+                cout << "The game has ended. The winner is: ";
+                if( b_count > w_count){
+                    cout <<"Black";
+                }
+                else{
+                    cout <<"White";
+                }
+                cout<<endl << "Ending game..." << endl;
+                cout << "-------------------------------------" << endl;
+                break;
+            }else{
+                last_skip = true;
+            }
+
+            continue;
+        }
+        else{
+            last_skip = false;
+        }
+        
+        while(is_input_not_valid){
+            
+            cout << turn << "'s turn, please input a move: ";
+            cin.get(input,INPUT_SIZE);
+            cin.ignore(1024,'\n');
+            cin.clear();
+            is_input_not_valid = !isInputValid(input,valid_moves);
+            if(is_input_not_valid){
+
+                cout <<"ERROR: Input isn't valid! Try again!" << endl;
+            }
+        }
+        is_input_not_valid = true;
+        updateBoardFromInput(board,input,turn);
+    }
+}
+
 void mainMenu(){
     const int INPUT_SIZE = 2;
     bool is_input_valid = false;
