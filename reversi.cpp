@@ -9,14 +9,15 @@
 #define BOARD_SIZE 8
 using namespace std;
 
-
-
 int win_points_pure_mc = 5;
 int lose_points_pure_mc = -1;
 int draw_points_pure_mc = 2;
 const double MAX_TIMEOUT = 5; // Maximum seconds for AI to be able to move.
 const int TOTAL_GAMES = 3000; // Most likely won't reach this
-
+double totalMonteCarloTime = 0;
+double totalMonteCarloCalls = 0;
+double totalHeurMCTime = 0;
+double totalHeurMCCalls = 0;
 
 void playerVsPlayer(){
     const int INPUT_SIZE = 3;
@@ -391,7 +392,7 @@ void experiment(){
     int second_HeurWins = 0;
     int second_ties = 0;
     char result = ' ';
-    int totalGames = 50;
+    int totalGames = 5;
     // When heuristics is black (goes first)
     for(int i = 0; i < totalGames; i++){
         
@@ -440,11 +441,13 @@ void experiment(){
     }
 
     cout << endl << "-----------------------"<< endl;
-    cout << "EXPERIMENT DONE";
+    cout << "EXPERIMENT DONE"<<endl;
     cout << "When heuristics went first as black, it won: " << first_HeurWins <<"/" << totalGamesFirst << ".";
     cout << " and tied " << first_ties << "/"<< totalGamesFirst <<"." << endl;
     cout << "When heuristics went second as white, it won: " << second_HeurWins <<"/" << totalGamesSecond << ".";
-    cout << " and tied " << second_ties << "/"<< totalGamesSecond <<"." << endl;
+    cout << " and tied " << second_ties << "/"<< totalGamesSecond <<"." << endl << endl;
+    cout << "Average Time (in seconds) for Pure Monte Carlo: "<< totalMonteCarloTime/totalMonteCarloCalls << endl;
+    cout << "Average Time (in seconds) for Heuristics Monte Carlo: " << totalHeurMCTime/totalHeurMCCalls << endl;
     cout << endl << "-----------------------"<< endl;
 
 

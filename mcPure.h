@@ -10,6 +10,8 @@ extern const int TOTAL_GAMES;
 extern int win_points_pure_mc;
 extern int lose_points_pure_mc;
 extern int draw_points_pure_mc;
+extern double totalMonteCarloTime;
+extern double totalMonteCarloCalls;
 
 using namespace std;
 
@@ -100,7 +102,7 @@ void pureMonteCarloMoves( char (&board)[BOARD_SIZE][BOARD_SIZE], vector<int> i_m
     int totalScore = 0;
     char boardCopy[BOARD_SIZE][BOARD_SIZE];
     double max_time_per_move = MAX_TIMEOUT/((double)(i_moves.size()));
-    
+    clock_t monteStart = clock();
     for(int k = 0; k < i_moves.size(); k++)
     {
         
@@ -153,11 +155,14 @@ void pureMonteCarloMoves( char (&board)[BOARD_SIZE][BOARD_SIZE], vector<int> i_m
             maxScore = score[k];
         }
     }
+    clock_t monteEnd = clock();
+    totalMonteCarloTime += double(monteEnd - monteStart)/CLOCKS_PER_SEC;
+    totalMonteCarloCalls +=1;
 
     char input_i = i_moves[indexWinner] + 49;
     char input_j = j_moves[indexWinner] + 97;
     char input[3] = {input_j,input_i,0};
-
+    
     updateBoardFromInput(board, input, ai);
 }
 

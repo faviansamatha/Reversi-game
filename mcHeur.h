@@ -10,6 +10,8 @@ extern const int TOTAL_GAMES;
 extern int win_points_pure_mc;
 extern int lose_points_pure_mc;
 extern int draw_points_pure_mc;
+extern double totalHeurMCTime;
+extern double totalHeurMCCalls;
 
 int heurRandomMoves(char (&board)[BOARD_SIZE][BOARD_SIZE], char ai){
     
@@ -213,7 +215,7 @@ void heurMonteCarloMoves( char (&board)[BOARD_SIZE][BOARD_SIZE], vector<int> i_m
     char boardCopy[BOARD_SIZE][BOARD_SIZE];
     double max_time_per_move = MAX_TIMEOUT/((double)(i_moves.size()));
     bool is_corner = false;
-
+    clock_t monteStart = clock();
     //if a corner move is available, always take it and skip the plays.
     for(int k = 0; k < i_moves.size(); k++){
         if(i_moves[k] == 0 && j_moves[k] == 0
@@ -224,7 +226,9 @@ void heurMonteCarloMoves( char (&board)[BOARD_SIZE][BOARD_SIZE], vector<int> i_m
             char input_i = i_moves[k] + 49;
             char input_j = j_moves[k] + 97;
             char input[3] = {input_j,input_i,0};
-
+            clock_t monteEnd = clock();
+            totalHeurMCTime += double(monteEnd - monteStart)/CLOCKS_PER_SEC;
+            totalHeurMCCalls +=1;
             updateBoardFromInput(board, input, ai);
             return;
         }
@@ -340,9 +344,14 @@ void heurMonteCarloMoves( char (&board)[BOARD_SIZE][BOARD_SIZE], vector<int> i_m
         }
     }
 
+    clock_t monteEnd = clock();
+    totalHeurMCTime += double(monteEnd - monteStart)/CLOCKS_PER_SEC;
+    totalHeurMCCalls +=1;
+
     char input_i = i_moves[indexWinner] + 49;
     char input_j = j_moves[indexWinner] + 97;
     char input[3] = {input_j,input_i,0};
+    
 
     updateBoardFromInput(board, input, ai);
 }
